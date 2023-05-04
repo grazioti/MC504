@@ -56,16 +56,14 @@ void* f_car(void *v) {
 }
 
 void* f_passenger(void *v) {
-    while (1) {
+    while(1) {
         int id = *(int*) v;
         int time = random() % 3;
 
-        // printf("Passanger %d waiting for %d seconds\n", id, time);
         sleep(time);
 
         sem_wait(&boardQueue);
 
-        // printf("Id before wait: %d\n",id);
         sem_wait(&mutex);
         boarders += 1;
         printf("Passenger %d boarded the car.\n", id);
@@ -74,9 +72,7 @@ void* f_passenger(void *v) {
             printf("The car is complete with %d passengers.\n", CAPACITY);
             boarders = 0;
         }
-        // printf("Id before post: %d\n",id);
         sem_post(&mutex);
-        // printf("Id after post: %d\n",id);
 
         sem_wait(&unboardQueue);
         printf("Passenger %d unboarded the car.\n", id);
@@ -89,9 +85,7 @@ void* f_passenger(void *v) {
             unboarders = 0;
         }
         sem_post(&mutex2);
-
     }
-
     return NULL;
 }
 
