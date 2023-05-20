@@ -26,7 +26,7 @@
 #define HEIGHT 40
 
 #define CART_STARTX 10
-#define CART_STARTY 10
+#define CART_STARTY 07
 #define CART_PADDING 12
 
 #define QUEUE_STARTX 20
@@ -59,6 +59,18 @@ char *PERSON_MASK =
     " ----- \n"
     "/     \\\n";
 
+char *COASTER_FLOOR =
+    "========================================\n"
+    "|     H*    H   *H         H*    H   *H|\n"
+    "|     H *   H  * H         H *   H  * H|\n"
+    "|     H  *  H *  H         H  *  H *  H|\n"
+    "|     H   * **   H         H   ***    H|\n"
+    "|     H  *  H *  H         H  *  H *  H|\n"
+    "|     H *   H  * H         H *   H  * H|\n"
+    "|     H*    H   *H         H*    H   *H|\n"
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+
 // Animation Variables
 int CART_HEADX, CART_HEADY;
 PrintBuffer BUF;
@@ -77,6 +89,13 @@ int boarders = 0;
 int unboarders = 0;
 
 // Auxiliary Function
+void add_background(PrintBuffer *buffer) {
+    int start_pos = 10;
+
+    for (int i = 0; i < WIDTH / 40; i++)
+        draw_object(buffer, COASTER_FLOOR, i * 40, start_pos);
+}
+
 void draw_train(PrintBuffer *buffer, Cart *cart_list, int dx) {
     const int space = 12;
     const int start_pos = 10;
@@ -84,6 +103,8 @@ void draw_train(PrintBuffer *buffer, Cart *cart_list, int dx) {
     CART_HEADX += dx;
     CART_HEADY += 0;
 
+    draw_queue(&Q, buffer);
+    add_background(buffer);
     draw_object(buffer, CART_HEAD, CART_HEADX, CART_HEADY);
     for (int i = 0; i < CAPACITY; i++) {
         cart_list[i].x = cart_list[i].x + dx;
@@ -94,7 +115,7 @@ void draw_train(PrintBuffer *buffer, Cart *cart_list, int dx) {
 void move_train(PrintBuffer *buffer, Cart *cart_list) {
     int dx = -10;
 
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < 6; i++){
         draw_train(buffer, cart_list, i * dx);
         render_buffer(buffer, 1000000);
     }
