@@ -51,19 +51,19 @@ void remove_person(Queue *l, int value) {
     l->n -= 1;
 }
 
-void draw_queue(Queue l, PrintBuffer *buffer) {
-    for (int i = 0; i < l.n; i++) {
-        draw_person(l.people[i], buffer);
+void draw_queue(Queue *l, PrintBuffer *buffer) {
+    for (int i = 0; i < l->n; i++) {
+        draw_person(l->people[i], buffer);
     }
 }
 
 // Cart Methods
-void init_cart(Cart *c, char *mask, char *empty_mask) {
+void init_cart(Cart *c, char *mask, char *empty_mask, int x, int y) {
     c->empty_mask = malloc(sizeof(char) * strlen(empty_mask));
     c->mask = malloc(sizeof(char) * strlen(mask));
     c->body = malloc(sizeof(char) * strlen(mask));
-    c->x = 0;
-    c->y = 0;
+    c->x = x;
+    c->y = y;
     c->value = -1; // EMPTY
     strcpy(c->empty_mask, empty_mask);
     strcpy(c->mask, mask);
@@ -71,6 +71,11 @@ void init_cart(Cart *c, char *mask, char *empty_mask) {
 
 void set_value(Cart *c, int value) {
     c->value = value;
+}
+
+void set_position(Cart *c, int x, int y) {
+    c->x = x;
+    c->y = y;
 }
 
 void draw_cart(Cart *c, PrintBuffer *buffer) {
