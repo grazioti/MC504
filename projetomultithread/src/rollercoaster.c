@@ -30,7 +30,7 @@
 #define CART_PADDING 12
 
 #define QUEUE_STARTX 20
-#define QUEUE_STARTY 30
+#define QUEUE_STARTY 29
 
 // Animation Masks
 char *CART_HEAD =
@@ -80,6 +80,45 @@ char *COASTER_FLOOR =
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 
+char *THREE = 
+    "   @@@@  \n"
+    "  @@||@@ \n"
+    " @@@||@@@\n"
+    " @@@||@@@\n"
+    "    ||   \n";
+
+char *FLOOR =
+    "##########\n"
+    "oooooooooo\n"
+    "oooooooooo\n"
+    "oooooooooo\n"
+    "oooooooooo\n";
+
+char *ENTRANCE =
+    "---------------\n"
+    "|   ROLLER    |\n"
+    "|   COASTER   |\n"
+    "---------------\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n";
+
+char *EXIT =
+    "---------------\n"
+    "|    EXIT     |\n"
+    "|             |\n"
+    "---------------\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n"
+    "||           ||\n";
+
+
 // Animation Variables
 int CART_HEADX, CART_HEADY;
 PrintBuffer BUF;
@@ -100,9 +139,16 @@ int unboarders = 0;
 // Auxiliary Function
 void add_background(PrintBuffer *buffer) {
     int start_pos = 10;
+    int floor_start_pos = 35;
 
     for (int i = 0; i < WIDTH / 40; i++)
         draw_object(buffer, COASTER_FLOOR, i * 40, start_pos);
+
+    for (int i = 0; i < WIDTH / 10; i++)
+        draw_object(buffer, FLOOR, i * 10, floor_start_pos);
+
+    draw_object(buffer, ENTRANCE, 1, 25);
+    draw_object(buffer, EXIT, 144, 25);
 }
 
 void draw_train(PrintBuffer *buffer, Cart *cart_list, int dx) {
