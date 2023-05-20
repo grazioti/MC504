@@ -34,17 +34,17 @@ Suponha que haja N passageiros e um trem de montanha-russa. Os passageiros esper
 Para a solução do problema, utilizamos N threads para os passageiros e uma thread para o carro. Definimos também um número N_RUNS de voltas que o carro executa. Isso é análogo ao parque fechar e os passageiros irem embora (threads morrem).
 
 ## Semáforos, mutex locks e/ou variáveis de condição
-- mutex: protege os passageiros, contando o número de passageiros que
+- `mutex`: protege os passageiros, contando o número de passageiros que
 invocaram um embarque.
-- mutex2: protege os passageiros, contando o número de passageiros que
+- `mutex2`: protege os passageiros, contando o número de passageiros que
 invocaram um desembarque.
-- mutexPrint = Semaphore(1)
-- boarders: variável utilizada para armazenar o número de passageiros que embarcou no trem;
-- unboarders: variável utilizada para armazenar o número de passageiros que desembarcou no trem;
-- boardQueue = Semaphore (0)
-- unboardQueue = Semaphore (0)
-- allAboard: semáforo que indica quando o trem está completo com C passageiros.
-- allAshore: semáforo que indica quando todos os C passageiros desembarcaram do trem.
+- `mutexPrint` = Semaphore(1)
+- `boarders`: variável utilizada para armazenar o número de passageiros que embarcou no trem;
+- `unboarders`: variável utilizada para armazenar o número de passageiros que desembarcou no trem;
+- `boardQueue = Semaphore (0)`
+- `unboardQueue = Semaphore (0)`
+- `allAboard`: semáforo que indica quando o trem está completo com C passageiros.
+- `allAshore`: semáforo que indica quando todos os C passageiros desembarcaram do trem.
 
 ## Thread do carro
 A thread do carro fica em loop até que a condição de parada seja atingida: o número de voltas que o trem completou é exatamente igual a N_RUNS (hora de fechar o parque!). Inicialmente, ela posta que o embarque iniciou e espera até que todos os C passageiros estejam abordo. Posteriormente, podemos iniciar o passeio. Então, rodamos uma animação da montanha russa até o trem completar uma volta na tela. Quando ele volta a posição inicial, sabemos que ele completou uma volta e, portanto, devemos sinalizar que o desembarque iniciou. Esperamos que todos os passageiros estejam em terra e o processo se reinicia.
@@ -167,17 +167,17 @@ quando ela volta os passageiros desembarcam em qualquer ordem voltando para a es
 
 Para a animação, foram criados objetos para representar a espera de pessoas e os carrinhos:
 
-    * Carrinho: Possui uma posição dada em X e Y e renderiza de acordo com a pessoa que está dentro dele e sua posição. Para a animação, basta transladar a posição do carrinho e colocar o número do passageiro, ao efetuar o "swap" ele já estará na tela de acordo.
-    * Espera de pessoas: Cada pessoa é um thread que se responsabiliza por entrar no carrinho, quando ela entra, o carrinho é atualizado, portanto, alterando o seu estado na tela.
+* Carrinho: Possui uma posição dada em X e Y e renderiza de acordo com a pessoa que está dentro dele e sua posição. Para a animação, basta transladar a posição do carrinho e colocar o número do passageiro, ao efetuar o "swap" ele já estará na tela de acordo.
+* Espera de pessoas: Cada pessoa é um thread que se responsabiliza por entrar no carrinho, quando ela entra, o carrinho é atualizado, portanto, alterando o seu estado na tela.
    
  Quando o carrinho lota, a montanha russa fecha e os carrinhos de deslocam até acabar o passeio, permitindo que os passageiros saiam e entrem novamente.
 
 Com o auxílio da biblioteca implementada, a animação possui alguns parâmetros que podem ser alterados programaticamente:
 
-    * Número de pessoas: Aumenta a quantidade de pessoas na espera.
-    * Resolução da tela: Aumenta a resolução da tela, tanto a altura quanto a largura (Obs: Para melhores resultados espera-se que a largura seja múltiplo de 40).
-    * Número de voltas da montanha: Define quantas voltas a montanha-russa vai dar em um passeio.
-    * Capacidade do carrinho: Define quantos carrinhos vão ter na montanha-russa.
+* Número de pessoas: Aumenta a quantidade de pessoas na espera.
+* Resolução da tela: Aumenta a resolução da tela, tanto a altura quanto a largura (Obs: Para melhores resultados espera-se que a largura seja múltiplo de 40).
+* Número de voltas da montanha: Define quantas voltas a montanha-russa vai dar em um passeio.
+* Capacidade do carrinho: Define quantos carrinhos vão ter na montanha-russa.
  
 
 
