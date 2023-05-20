@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -pthread -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast
 
-PROGRAMS = rollercoasterlog
+PROGRAMS = rollercoaster rollercoasterlog
 
 all: $(PROGRAMS)
 
