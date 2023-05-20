@@ -26,7 +26,7 @@
 #define HEIGHT 40
 
 #define CART_STARTX 10
-#define CART_STARTY 07
+#define CART_STARTY 04
 #define CART_PADDING 12
 
 #define QUEUE_STARTX 20
@@ -34,18 +34,27 @@
 
 // Animation Masks
 char *CART_HEAD =
+    "             \n"
+    "             \n"
+    "             \n"
     "      _____  \n"
     "  II__|[ ]|  \n"
     " |        |_ \n"
     "< OO----OOO  \n";
 
 char *CART_BODY =
+    "      o      \n"
+    "    -----    \n"
+    "   /|%03d|\\   \n"
     "_____________\n"
-    "|   [%03d]   |\n"
+    "|           |\n"
     "|___________|\n"
     "  OO----OO  \n";
 
 char *CART_EMPTY =
+    "             \n"
+    "             \n"
+    "             \n"
     "_____________\n"
     "|  [EMPTY]  |\n"
     "|___________|\n"
