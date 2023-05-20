@@ -1,19 +1,22 @@
 CC = gcc
 CFLAGS = -g -pthread -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast
 BUILD_PATH = ../build
-
-PROGRAMS = rollercoaster rollercoasterlog
+OBJS = buffer.o primitives.o rollercoaster.o
+PROGRAMS = rollercoaster
 
 all: $(PROGRAMS)
+
+rollercoaster: $(OBJS)
+	$(CC) $(CFLAGS) $(BUILD_PATH)/*.o -o rollercoaster
 
 buffer.o: buffer/buffer.c buffer/buffer.h
 	$(CC) $(CFLAGS) -c buffer/buffer.c -o $(BUILD_PATH)/buffer.o
 
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c -o $(BUILD_PATH)/main.o
+primitives.o: primitives/primitives.c primitives/primitives.o
+	$(CC) $(CFLAGS) -c primitives/primitives.c -o $(BUILD_PATH)/primitives.o
 
-main: main.o buffer.o
-	$(CC) $(CFLAGS) $(BUILD_PATH)/*.o -o $(BUILD_PATH)/rollercoaster
+rollercoaster.o: rollercoaster.c
+	$(CC) $(CFLAGS) -c rollercoaster.c -o $(BUILD_PATH)/rollercoaster.o
 
 clean:
 	rm -f *.o *~ $(PROGRAMS)

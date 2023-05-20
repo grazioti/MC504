@@ -1,4 +1,4 @@
-#include "../buffer.h"
+#include "../buffer/buffer.h"
 
 typedef struct Person {
     char *body;
@@ -26,11 +26,11 @@ void draw_person(Person p, PrintBuffer *buffer);
 
 // Queue Methods
 void init_queue(Queue *l, int x, int y, int max_size);
-void add_person(Queue *l, int value, , char *person_mask);
+void add_person(Queue *l, int value, char *person_mask);
 void remove_person(Queue *l, int value);
 void draw_line(Queue l, PrintBuffer *buffer);
 
 // Cart Methods
-void init_cart(Cart *c, char *mask);
+void init_cart(Cart *c, char *mask, char *empty_mask);
 void set_value(Cart *c, int value);
 void draw_cart(Cart *c, PrintBuffer *buffer);
