@@ -1,3 +1,6 @@
+#ifndef PRIMITIVES_H
+#define PRIMITIVES_H
+
 #include "../buffer/buffer.h"
 
 typedef struct Person {
@@ -35,3 +38,5 @@ void init_cart(Cart *c, char *mask, char *empty_mask, int x, int y);
 void set_value(Cart *c, int value);
 void set_position(Cart *c, int x, int y);
 void draw_cart(Cart *c, PrintBuffer *buffer);
+
+#endif

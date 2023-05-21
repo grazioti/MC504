@@ -52,16 +52,16 @@ void draw_object(PrintBuffer *buffer, char *object, int x, int y)
 
 void printc(PrintBuffer *buffer)
 {
-    printf("\033[0;0H"); // Move o cursor para a primeira linha e coluna (1;1)
+    printf("\033[0;0H");
     for (int i = 0; buffer->buffer[i] != '\0'; i++)
     {
-        putchar(buffer->buffer[i]); // Imprime cada caractere individualmente
+        putchar(buffer->buffer[i]);
     }
-    fflush(stdout); // Limpa o buffer de saída
+    fflush(stdout);
 }
+
 void render_buffer(PrintBuffer *buffer, int sleepAfter)
 {
-
     printc(buffer);
     fflush(stdout);
     fill_buffer(buffer, ' ');
