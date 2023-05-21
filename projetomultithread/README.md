@@ -17,7 +17,33 @@ Para desenvolvimento do projeto, utilizamos o capítulo 5.8 do livro *The Little
 [![Vídeo](http://img.youtube.com/vi/cT9ZoRzvolI/0.jpg)](https://youtu.be/cT9ZoRzvolI)
 
 ## Link com apresentação de slides do vídeo
-[Slides](/assets/roller-coaster-presentation.pdf)
+[Slides](./assets/roller-coaster-presentation.pdf)
+
+## Organização de pastas
+```
+.
+├── assets/
+│   ├── roller-coaster-intro.png
+│   └── roller-coaster-presentation.pdf
+└── src/
+    ├── animation/
+    │   ├── animation.c
+    │   ├── animation.h
+    │   └── animation_config.h
+    ├── buffer/
+    │   ├── buffer.c
+    │   └── buffer.h
+    ├── primitives/
+    │   ├── primitives.c
+    │   └── primitives.h
+    ├── sprites/
+    │   ├── sprites.c
+    │   └── sprites.h
+    ├── rollercoaster_config.h
+    ├── rollercoasterlog.c
+    ├── rollercoaster.c
+    └── .gitignore
+```
 
 # O Problema da Montanha Russa
 
@@ -166,7 +192,7 @@ Com o auxílio da biblioteca implementada, a animação possui alguns parâmetro
 * Capacidade do carrinho: 5
 
 ## GIF da animação 
-![Roller coaster animation exemple](/assets/roller-coaster-exemple.gif)
+![Roller coaster animation exemple](./assets/roller-coaster-exemple.gif)
 
 # Executando na sua máquina
 Nesse tópico iremos ensinar um passo a passo de como baixar, configurar e executar o projeto no seu computador.
@@ -175,7 +201,7 @@ Nesse tópico iremos ensinar um passo a passo de como baixar, configurar e execu
 2. Abra em seu sistema de arquivos a pasta **projetomultithread**;
 3. Segurando o botão Shift, clique com o botão direito do mouse nessa pasta e selecione "Abrir o shell do Linux aqui";
 4. Clique com o botão direito na janela do shell e selecione "Propriedades";
-5. Na aba **Layout**, busque por **Tamanho da Janela** e ajuste para que ela fique com a resolução informada no código `rollercoaster.c`, isto é, mude para Largura = WITDH e Altura = HEIGHT. Isso é de extrema importância para evitar erros na visualização da animação. Por exemplo, se WITDH = 160 e HEIGHT = 40, ajuste o tamanho da janela do terminal para Largura = 160 e Altura = 40.
+5. Na aba **Layout**, busque por **Tamanho da Janela** e ajuste para que ela fique com a resolução informada no código `./scr/animation/animation_config.h`, isto é, mude para Largura = WITDH e Altura = HEIGHT. Isso é de extrema importância para evitar erros na visualização da animação. Por exemplo, se WITDH = 160 e HEIGHT = 40, ajuste o tamanho da janela do terminal para Largura = 160 e Altura = 40.
 6. Com o shell aberto no diretório **projetomultithread**, execute o comando `make clean`.
 7. Em seguida, faça `make`.
-8. Que tal dar um passeio de montanha russa? Basta executar `./rollercoaster` para ver a animação do trabalho!
+8. Que tal dar um passeio de montanha russa? Basta executar `./rollercoaster.x` para ver a animação do trabalho!
