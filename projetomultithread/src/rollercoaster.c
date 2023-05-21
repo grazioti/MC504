@@ -22,7 +22,7 @@
 #define CAPACITY 5
 #define N_RUNS 3
 
-#define WIDTH 200
+#define WIDTH 160
 #define HEIGHT 40
 
 #define CART_STARTX 10
@@ -177,7 +177,7 @@ int unboarders = 0;
 // Auxiliary Function
 void add_background(PrintBuffer *buffer) {
     int start_pos = 10;
-    int floor_start_pos = 35;
+    int floor_start_pos = HEIGHT - 5;
 
     for (int i = 0; i < WIDTH / 40; i++)
         draw_object(buffer, COASTER_FLOOR, i * 40, start_pos);
@@ -185,8 +185,8 @@ void add_background(PrintBuffer *buffer) {
     for (int i = 0; i < WIDTH / 10; i++)
         draw_object(buffer, FLOOR, i * 10, floor_start_pos);
 
-    draw_object(buffer, ENTRANCE, 1, 25);
-    draw_object(buffer, EXIT, WIDTH - 16, 25);
+    draw_object(buffer, ENTRANCE, 1, HEIGHT - 15);
+    draw_object(buffer, EXIT, WIDTH - 16, HEIGHT - 15);
 }
 
 void draw_train(PrintBuffer *buffer, Cart *cart_list, int dx) {
@@ -220,20 +220,59 @@ void move_train(PrintBuffer *buffer, Cart *cart_list) {
     }
 }
 
+void load() {
+    return;
+}
+
+void unload() {
+    return;
+}
+
+void run() {
+    move_train(&BUF, CART_LIST);
+}
+
+void board(int id, int pos) {
+    sem_wait(&mutexPrint);
+
+    set_value(&CART_LIST[pos], id);
+    remove_person(&Q, id);
+    draw_queue(&Q, &BUF);
+    draw_train(&BUF, CART_LIST, 0);
+    render_buffer(&BUF, 1000000);
+
+    sem_post(&mutexPrint);
+}
+
+void unboard(int id, int pos) {
+    sem_wait(&mutexPrint);
+
+    set_value(&CART_LIST[pos], -1);
+    add_person(&Q, id, PERSON_MASK);
+    draw_queue(&Q, &BUF);
+    draw_train(&BUF, CART_LIST, 0);
+    render_buffer(&BUF, 1000000);
+
+    sem_post(&mutexPrint);
+}
+
+
 // Thread Functions
 void* f_car(void *v) {
     int runs = 0;
 
     while(runs < N_RUNS) {
+        load();
         for (int i = 0; i < CAPACITY; i++) {
             sem_post(&boardQueue);
         }
         sem_wait(&allAboard);
 
         sem_wait(&mutexPrint);
-        move_train(&BUF, CART_LIST);
+        run();
         sem_post(&mutexPrint);
 
+        unload();
         for (int i = 0; i < CAPACITY; i++) {
             sem_post(&unboardQueue);
         }
@@ -253,43 +292,23 @@ void* f_passenger(void *v) {
 
         sleep(stime);
 
+        // Waits to board
         sem_wait(&boardQueue);
-
         sem_wait(&mutex);
+
         pos = boarders;
-        set_value(&CART_LIST[pos], id);
+        board(id, pos);
+
         boarders += 1;
-
-        sem_wait(&mutexPrint);
-
-        remove_person(&Q, id);
-        draw_queue(&Q, &BUF);
-
-        draw_train(&BUF, CART_LIST, 0);
-        render_buffer(&BUF, 1000000);
-
-        sem_post(&mutexPrint);
-
         if (boarders == CAPACITY) {
             sem_post(&allAboard);
             boarders = 0;
         }
         sem_post(&mutex);
 
+        // Waits to Unboard
         sem_wait(&unboardQueue);
-        
-        
-        sem_wait(&mutexPrint);
-
-        //Sai do carro
-        set_value(&CART_LIST[pos], -1);
-        add_person(&Q, id, PERSON_MASK);
-        draw_queue(&Q, &BUF);
-
-        draw_train(&BUF, CART_LIST, 0);
-        render_buffer(&BUF, 1000000);
-
-        sem_post(&mutexPrint);
+        unboard(id, pos);
 
         sem_wait(&mutex2);
         unboarders += 1;
@@ -309,7 +328,7 @@ int main() {
     // Sets up animation variables
     init_buffer(&BUF, WIDTH, HEIGHT);
     fill_buffer(&BUF, ' ');
-    init_queue(&Q, QUEUE_STARTX, QUEUE_STARTY, N_PASSENGER);
+    init_queue(&Q, QUEUE_STARTX, HEIGHT - 11, N_PASSENGER);
 
     CART_HEADX = CART_STARTX;
     CART_HEADY = CART_STARTY;
