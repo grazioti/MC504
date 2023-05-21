@@ -112,16 +112,18 @@ char *PERSON_MASK =
     "/     \\\n";
 
 char *COASTER_FLOOR =
-    "========================================\n"
-    "|     H*    H   *H         H*    H   *H|\n"
-    "|     H *   H  * H         H *   H  * H|\n"
-    "|     H  *  H *  H         H  *  H *  H|\n"
-    "|     H   * **   H         H   ***    H|\n"
-    "|     H  *  H *  H         H  *  H *  H|\n"
-    "|     H *   H  * H         H *   H  * H|\n"
-    "|     H*    H   *H         H*    H   *H|\n"
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+    ANSI_COLOR_RED "\n"
+                   "========================================\n"
+                   "|     H*    H   *H         H*    H   *H|\n"
+                   "|     H *   H  * H         H *   H  * H|\n"
+                   "|     H  *  H *  H         H  *  H *  H|\n"
+                   "|     H   * **   H         H   ***    H|\n"
+                   "|     H  *  H *  H         H  *  H *  H|\n"
+                   "|     H *   H  * H         H *   H  * H|\n"
+                   "|     H*    H   *H         H*    H   *H|\n"
+                   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
+                   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
+                   "\n" ANSI_COLOR_RESET;
 
 char *THREE =
     "   @@@@  \n"
