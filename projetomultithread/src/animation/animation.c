@@ -8,6 +8,11 @@
 
 #define TRAIN_CD 1000000 / TRAIN_MOVE_FPS
 
+int CART_HEADX, CART_HEADY;
+PrintBuffer BUF;
+Queue Q;
+Cart CART_LIST[CAPACITY];
+
 void add_background(PrintBuffer *buffer)
 {
     int start_pos = 10;

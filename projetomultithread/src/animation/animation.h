@@ -13,10 +13,10 @@
 #define QUEUE_STARTY 29
 
 // Animation Variables
-int CART_HEADX, CART_HEADY;
-PrintBuffer BUF;
-Queue Q;
-Cart CART_LIST[CAPACITY];
+extern int CART_HEADX, CART_HEADY;
+extern PrintBuffer BUF;
+extern Queue Q;
+extern Cart CART_LIST[CAPACITY];
 
 // Animation Functions
 void add_background(PrintBuffer *buffer);
