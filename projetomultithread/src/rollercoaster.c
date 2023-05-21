@@ -20,7 +20,7 @@
 
 #define N_PASSENGER 16
 #define CAPACITY 5
-#define N_RUNS 3
+#define N_RUNS 2
 
 #define WIDTH 160
 #define HEIGHT 40
