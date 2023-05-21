@@ -34,17 +34,17 @@ Suponha que haja N passageiros e um trem de montanha-russa. Os passageiros esper
 Para a solução do problema, utilizamos N threads para os passageiros e uma thread para o carro. Definimos também um número N_RUNS de voltas que o carro executa. Isso é análogo ao parque fechar e os passageiros irem embora (threads morrem).
 
 ## Semáforos, mutex locks e/ou variáveis de condição
-- mutex: protege os passageiros, contando o número de passageiros que
+- `mutex`: protege os passageiros, contando o número de passageiros que
 invocaram um embarque.
-- mutex2: protege os passageiros, contando o número de passageiros que
+- `mutex2`: protege os passageiros, contando o número de passageiros que
 invocaram um desembarque.
-- mutexPrint = Semaphore(1)
-- boarders: variável utilizada para armazenar o número de passageiros que embarcou no trem;
-- unboarders: variável utilizada para armazenar o número de passageiros que desembarcou no trem;
-- boardQueue = Semaphore (0)
-- unboardQueue = Semaphore (0)
-- allAboard: semáforo que indica quando o trem está completo com C passageiros.
-- allAshore: semáforo que indica quando todos os C passageiros desembarcaram do trem.
+- `mutexPrint` = Semaphore(1)
+- `boarders`: variável utilizada para armazenar o número de passageiros que embarcou no trem;
+- `unboarders`: variável utilizada para armazenar o número de passageiros que desembarcou no trem;
+- `boardQueue = Semaphore (0)`
+- `unboardQueue = Semaphore (0)`
+- `allAboard`: semáforo que indica quando o trem está completo com C passageiros.
+- `allAshore`: semáforo que indica quando todos os C passageiros desembarcaram do trem.
 
 ## Thread do carro
 A thread do carro fica em loop até que a condição de parada seja atingida: o número de voltas que o trem completou é exatamente igual a N_RUNS (hora de fechar o parque!). Inicialmente, ela posta que o embarque iniciou e espera até que todos os C passageiros estejam abordo. Posteriormente, podemos iniciar o passeio. Então, rodamos uma animação da montanha russa até o trem completar uma volta na tela. Quando ele volta a posição inicial, sabemos que ele completou uma volta e, portanto, devemos sinalizar que o desembarque iniciou. Esperamos que todos os passageiros estejam em terra e o processo se reinicia.
@@ -143,7 +143,44 @@ void* f_passenger(void *v) {
 }
 ~~~
 
-## Animação
+## Renderização
+
+Para a animação, implementamos uma pequena biblioteca responsável por efetuar a renderização no terminal em tempo real.
+
+# Especificações da bliblioteca
+
+Armazena os caracteres em um buffer de saída e, somente quando requerido, efetua o "swap", mandando para o terminal.
+
+O buffer unidimensional terminado em '\0' representa uma matriz bidimensional que armazena as informações dos chars da tela.
+Onde a origem é dada no canto superior esquerdo; o X aumenta para a esquerda e o Y para baixo 
+
+O tamanho da janela é personalizável, aceitando tamanhos bem grandes sem perda de performance.
+
+Possibilita a inserção de strings ASCII unidimensionais ou bidimensionais em qualquer coordenada da tela, respeitando a quebra de linhas e formato.
+
+Permite que haja sobreposição de strings, levando a criação de cenário e fundo.
+
+# Animação
+
+A animação consiste em uma montanha russa com um conjunto de pessoas esperando para entrar, quando a montanha russa enche o passeio se inicia,
+quando ela volta os passageiros desembarcam em qualquer ordem voltando para a espera.
+
+Para a animação, foram criados objetos para representar a espera de pessoas e os carrinhos:
+
+* Carrinho: Possui uma posição dada em X e Y e renderiza de acordo com a pessoa que está dentro dele e sua posição. Para a animação, basta transladar a posição do carrinho e colocar o número do passageiro, ao efetuar o "swap" ele já estará na tela de acordo.
+* Espera de pessoas: Cada pessoa é um thread que se responsabiliza por entrar no carrinho, quando ela entra, o carrinho é atualizado, portanto, alterando o seu estado na tela.
+   
+ Quando o carrinho lota, a montanha russa fecha e os carrinhos de deslocam até acabar o passeio, permitindo que os passageiros saiam e entrem novamente.
+
+Com o auxílio da biblioteca implementada, a animação possui alguns parâmetros que podem ser alterados programaticamente:
+
+* Número de pessoas: Aumenta a quantidade de pessoas na espera.
+* Resolução da tela: Aumenta a resolução da tela, tanto a altura quanto a largura (Obs: Para melhores resultados espera-se que a largura seja múltiplo de 40).
+* Número de voltas da montanha: Define quantas voltas a montanha-russa vai dar em um passeio.
+* Capacidade do carrinho: Define quantos carrinhos vão ter na montanha-russa.
+ 
+
+
 
 # Executando na sua máquina
 Nesse tópico iremos ensinar um passo a passo de como baixar, configurar e executar o projeto no seu computador.
@@ -152,7 +189,7 @@ Nesse tópico iremos ensinar um passo a passo de como baixar, configurar e execu
 2. Abra em seu sistema de arquivos a pasta **projetomultithread**;
 3. Segurando o botão Shift, clique com o botão direito do mouse nessa pasta e selecione "Abrir o shell do Linux aqui";
 4. Clique com o botão direito na janela do shell e selecione "Propriedades";
-5. Na aba **Layout**, busque por **Tamanho da Janela** e ajuste para que ela fique com Largura = 160 px e Altura = 40 px. Isso é de extrema importância para evitar erros na visualização da animação.
+5. Na aba **Layout**, busque por **Tamanho da Janela** e ajuste para que ela fique com Largura = 160 px e Altura = 40 px (ou a resolução passada no código). Isso é de extrema importância para evitar erros na visualização da animação.
 6. Com o shell aberto no diretório **projetomultithread**, execute o comando `make clean`.
 7. Em seguida, faça `make`.
 8. Que tal dar um passeio de montanha russa? Basta executar `./rollercoaster` para ver a animação do trabalho!
