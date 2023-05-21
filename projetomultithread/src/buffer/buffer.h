@@ -1,6 +1,11 @@
 #ifndef BUFFER_H
 #define BUFFER_H
-typedef struct PrintBuffer {
+
+#define clear_terminal printf("\033[H\033[J")
+#define HIDE_CURSOR printf("\033[?25l")
+#define SHOW_CURSOR printf("\033[?25h")
+typedef struct PrintBuffer
+{
     int screen_width, screen_height;
     int buffer_size;
     char *buffer;
