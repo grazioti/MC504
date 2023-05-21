@@ -18,12 +18,12 @@
 #include "buffer/buffer.h"
 #include "primitives/primitives.h"
 
-#define N_PASSENGER 16
-#define CAPACITY 5
-#define N_RUNS 3
+#define N_PASSENGER 50
+#define CAPACITY 20
+#define N_RUNS 10
 
-#define WIDTH 200
-#define HEIGHT 40
+#define WIDTH 400
+#define HEIGHT 120
 
 #define CART_STARTX 10
 #define CART_STARTY 04
@@ -32,8 +32,11 @@
 #define QUEUE_STARTX 20
 #define QUEUE_STARTY 29
 
+// MAX FPS = WIDTH
+#define TRAIN_MOVE_FPS 120
+
 #define SLEEP_AFTER 2000000
-#define TRAIN_CD 20000
+#define TRAIN_CD 1000000 / TRAIN_MOVE_FPS
 #define SLEEP_BOARD 500000
 // Title Screens
 char *OPENING =
@@ -211,7 +214,7 @@ void draw_train(PrintBuffer *buffer, Cart *cart_list, int dx)
 
 void move_train(PrintBuffer *buffer, Cart *cart_list)
 {
-    int dx = -1;
+    float dx = -WIDTH / TRAIN_MOVE_FPS;
 
     for (int i = 0; i < WIDTH / abs(dx); i++)
     {
