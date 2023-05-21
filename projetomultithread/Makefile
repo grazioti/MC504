@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g -pthread -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast
 BUILD_PATH = build
 SRC_DIR = src
-OBJS = buffer.o primitives.o rollercoaster.o
+OBJS = buffer.o primitives.o rollercoaster.o animation.o sprites.o
 PROGRAMS = rollercoaster.x rollercoasterlog.x
 
 all: $(PROGRAMS)
@@ -18,6 +18,12 @@ buffer.o: $(SRC_DIR)/buffer/buffer.c $(SRC_DIR)/buffer/buffer.h
 
 primitives.o: $(SRC_DIR)/primitives/primitives.c $(SRC_DIR)/primitives/primitives.h
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/primitives/primitives.c -o $(BUILD_PATH)/primitives.o
+
+animation.o: $(SRC_DIR)/animation/*
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/animation/animation.c -o $(BUILD_PATH)/animation.o
+
+sprites.o: $(SRC_DIR)/sprites/*
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/sprites/sprites.c -o $(BUILD_PATH)/sprites.o
 
 rollercoaster.o: $(SRC_DIR)/rollercoaster.c
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/rollercoaster.c -o $(BUILD_PATH)/rollercoaster.o

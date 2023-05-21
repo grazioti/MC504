@@ -1,0 +1,8 @@
+#ifndef ROLLERCOASTER_CONFIG_H
+#define ROLLECOASTER_CONFIG_H
+
+#define N_PASSENGER 15
+#define CAPACITY 5
+#define N_RUNS 2
+
+#endif
