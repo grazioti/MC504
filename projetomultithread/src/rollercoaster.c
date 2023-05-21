@@ -18,12 +18,12 @@
 #include "buffer/buffer.h"
 #include "primitives/primitives.h"
 
-#define N_PASSENGER 50
-#define CAPACITY 20
+#define N_PASSENGER 15
+#define CAPACITY 5
 #define N_RUNS 10
 
-#define WIDTH 400
-#define HEIGHT 120
+#define WIDTH 160
+#define HEIGHT 40
 
 #define CART_STARTX 10
 #define CART_STARTY 04
@@ -112,18 +112,16 @@ char *PERSON_MASK =
     "/     \\\n";
 
 char *COASTER_FLOOR =
-    ANSI_COLOR_RED "\n"
-                   "========================================\n"
-                   "|     H*    H   *H         H*    H   *H|\n"
-                   "|     H *   H  * H         H *   H  * H|\n"
-                   "|     H  *  H *  H         H  *  H *  H|\n"
-                   "|     H   * **   H         H   ***    H|\n"
-                   "|     H  *  H *  H         H  *  H *  H|\n"
-                   "|     H *   H  * H         H *   H  * H|\n"
-                   "|     H*    H   *H         H*    H   *H|\n"
-                   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
-                   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
-                   "\n" ANSI_COLOR_RESET;
+    "========================================\n"
+    "|     H*    H   *H         H*    H   *H|\n"
+    "|     H *   H  * H         H *   H  * H|\n"
+    "|     H  *  H *  H         H  *  H *  H|\n"
+    "|     H   * **   H         H   ***    H|\n"
+    "|     H  *  H *  H         H  *  H *  H|\n"
+    "|     H *   H  * H         H *   H  * H|\n"
+    "|     H*    H   *H         H*    H   *H|\n"
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 
 char *THREE =
     "   @@@@  \n"
