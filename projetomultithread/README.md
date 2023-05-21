@@ -160,10 +160,10 @@ Com o auxílio da biblioteca implementada, a animação possui alguns parâmetro
 
 ## Parametros customizados
 
-* Número de pessoas: 10
+* Número de pessoas: 15
 * Resolução da tela: 160x40
-* Número de voltas da montanha: 2
-* Capacidade do carrinho: 3
+* Número de voltas da montanha: 3
+* Capacidade do carrinho: 5
 
 ## GIF da animação 
 ![Roller coaster animation exemple](/assets/roller-coaster-exemple.gif)
